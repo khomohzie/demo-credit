@@ -1,9 +1,13 @@
 import knex, { Knex } from "knex";
+import { Model } from "objection";
+
 import { development } from "./knex.config";
 
 // Create connection
 export async function connect(): Promise<void> {
 	const db: Knex<any, unknown[]> = knex(development);
+
+	Model.knex(db);
 
 	// Check that the connection works
 	db.raw("SELECT VERSION()")

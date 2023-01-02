@@ -42,6 +42,15 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 app.use("/api", routes);
 
+// default route
+app.get("/", (req: Request, res: Response) => {
+	return new CustomResponse(res).success(
+		"Welcome to the Demo Credit API. All API routes begin with /api.",
+		{},
+		200
+	);
+});
+
 //  404
 app.get("*", (req: Request, res: Response) => {
 	const e: ICustomException = new CustomException(
