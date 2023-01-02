@@ -1,15 +1,12 @@
 import { Request, Response, RequestHandler } from "express";
 import asyncHandler from "express-async-handler";
-import Dummy from "../models/dummy.model";
 import CustomError from "../utils/handlers/error.handler";
 import CustomResponse from "../utils/handlers/response.handler";
 
 export const dummyController: RequestHandler = asyncHandler(
 	async (req: Request, res: Response): Promise<any> => {
 		try {
-			const Test: any = await Dummy.find()
-				.select(["name", "-_id"])
-				.lean();
+			const Test: any = {};
 
 			// throw new CustomError("Testing Custom Error", 400);
 

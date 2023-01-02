@@ -12,13 +12,14 @@ import farmhash from "farmhash";
 
 // Load express
 import app from "./app";
-
+import { connect, disconnect } from "./config/db";
 import { PeerServer } from "peer";
 import redisClient from "./utils/redis.util";
 
 const PORT: number = process.env.PORT || 8080;
 
 // Connect to MySQL database
+connect();
 
 // Connect to REDIS
 redisClient
