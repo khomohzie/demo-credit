@@ -9,6 +9,11 @@ declare global {
 		interface ProcessEnv {
 			NODE_ENV: "development" | "production" | "test";
 			PORT: number;
+			DB_HOST: string;
+			DB_PORT: number;
+			DB_USER: string;
+			DB_PASSWORD: string;
+			DB_NAME: string;
 			JWT_ACCESS_PRIVATE_SECRET: Secret;
 			JWT_ACCESS_PUBLIC_SECRET: Secret;
 			JWT_REFRESH_PRIVATE_SECRET: Secret;
