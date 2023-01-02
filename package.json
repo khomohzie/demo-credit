@@ -1,0 +1,79 @@
+{
+  "name": "demo_credit",
+  "version": "1.0.0",
+  "description": "This is the API and backend server for the Demo Credit mobile application.",
+  "main": "./dist/server.js",
+  "scripts": {
+    "start": "node -r ./tsconfig-paths-bootstrap.js ./dist/server",
+    "dev": "nodemon ./src/server.ts",
+    "dev-prod": "set NODE_ENV=production&& nodemon ./src/server.ts",
+    "build": "tsc -p .",
+    "test": "jest --detectOpenHandles",
+    "start:prod": "pm2 start --env production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/khomohzie/demo-credit.git"
+  },
+  "keywords": [
+    "mobile",
+    "express",
+    "typescript",
+    "mysql",
+    "knex",
+    "api",
+    "server",
+    "backend"
+  ],
+  "author": "Daniel Komolafe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/khomohzie/demo-credit/issues"
+  },
+  "homepage": "https://github.com/khomohzie/demo-credit#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "chalk": "^5.2.0",
+    "cloudinary": "^1.33.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "express-formidable-typescript": "^1.0.2",
+    "farmhash": "^3.2.2",
+    "helmet": "^6.0.1",
+    "hpp": "^0.2.3",
+    "jsonwebtoken": "^9.0.0",
+    "jwt-promisify": "^1.1.6",
+    "knex": "^2.3.0",
+    "moment": "^2.29.4",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.3.3",
+    "peer": "^0.6.1",
+    "rand-token": "^1.0.1",
+    "redis": "^4.5.1",
+    "scrawny": "^1.0.0",
+    "toobusy-js": "^0.5.1",
+    "zod": "^3.20.2"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.15",
+    "@types/formidable": "^2.0.5",
+    "@types/hpp": "^0.2.2",
+    "@types/jest": "^29.2.5",
+    "@types/jsonwebtoken": "^9.0.0",
+    "@types/morgan": "^1.9.4",
+    "@types/node": "^18.11.18",
+    "@types/toobusy-js": "^0.5.2",
+    "jest": "^29.3.1",
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.3",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.2",
+    "typescript": "^4.9.4"
+  }
+}
