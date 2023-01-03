@@ -6,6 +6,7 @@
   "scripts": {
     "migrate": "knex migrate:latest --knexfile ./src/config/knex.config.ts",
     "rollback": "knex migrate:rollback --knexfile ./src/config/knex.config.ts",
+    "seed": "knex seed:run --knexfile ./src/config/knex.config.ts",
     "start": "node -r ./tsconfig-paths-bootstrap.js ./dist/server",
     "dev": "nodemon ./src/server.ts",
     "dev-prod": "set NODE_ENV=production&& nodemon ./src/server.ts",

@@ -14,28 +14,15 @@ export interface IPasswordResetData {
 }
 
 export interface IUser {
+	id: number;
 	firstname: string;
 	lastname: string;
 	email: string;
 	password: string;
-	research_id?: string;
-	age?: number;
-	gender?: string;
-	institution?: string;
-	faculty?: string;
-	department?: string;
-	level?: number;
-	bio?: string;
+	bvn?: string;
 	avatar: string;
-	cover_photo: string;
-	contact?: string;
-	role: {
-		type: string;
-		id: number;
-		enum: Array<string | number>;
-	};
-	reset_password_pin: string;
-	reset_pin_expiry?: Date;
-	active: boolean;
+	phone_number?: string;
+	role: string;
 	verified: boolean;
+	deleted_at: Date;
 }

@@ -1,14 +1,10 @@
-import mongoose from "mongoose";
 import redisClient from "./redis.util";
 import redisConfig from "../config/redis.config";
 import { signJwt, verifyJwt } from "./jwt.utils";
 import bcrypt from "bcrypt";
-import { TUser } from "../models/user.model";
 import { IUser } from "../interfaces/auth.interfaces";
 
 const { constants, prefix } = redisConfig;
-
-type TAUser = TUser & IUser & mongoose.Document;
 
 type TGenerate = {
 	accessToken: string;
@@ -25,9 +21,9 @@ type TVerify = {
 };
 
 //  Generate tokens
-export const generate = async (user: TAUser): Promise<TGenerate> => {
+export const generate = async (user: IUser): Promise<TGenerate> => {
 	const accessToken = signJwt(
-		{ _id: user._id },
+		{ id: user.id },
 		process.env.JWT_ACCESS_PRIVATE_SECRET,
 		{
 			expiresIn: `${process.env.ACCESS_TOKEN_EXPIRES_IN_DAY}d`,
@@ -35,7 +31,7 @@ export const generate = async (user: TAUser): Promise<TGenerate> => {
 	);
 
 	const refreshToken = signJwt(
-		{ _id: user._id },
+		{ id: user.id },
 		process.env.JWT_REFRESH_PRIVATE_SECRET,
 		{
 			expiresIn: `${process.env.REFRESH_TOKEN_EXPIRES_IN_DAY}d`,
@@ -43,7 +39,7 @@ export const generate = async (user: TAUser): Promise<TGenerate> => {
 	);
 
 	// Create a Session
-	await redisClient.set(user._id.toString(), JSON.stringify(user), {
+	await redisClient.set(user.id.toString(), JSON.stringify(user), {
 		EX: 60 * 60 * 24 * 7,
 	});
 
