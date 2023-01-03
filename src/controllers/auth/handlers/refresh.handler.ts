@@ -19,8 +19,7 @@ const refreshAccessToken = async (
 ) => {
 	try {
 		// Get the refresh token from cookie
-		// const refresh_token = req.cookies.refresh_token as string;
-		const refresh_token = req.headers.cookie as string;
+		const refresh_token = req.cookies.refresh_token as string;
 
 		// Validate the Refresh token
 		const decoded = verifyJwt<{ id: string }>(
