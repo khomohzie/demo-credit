@@ -16,10 +16,10 @@ const development = {
 	pool: { min: 0, max: 7 },
 	debug: true,
 	migrations: {
-		directory: path.join(__dirname, "../migrations"),
+		directory: path.join(__dirname, "../db/migrations"),
 	},
 	seeds: {
-		directory: path.join(__dirname, "../seeds"),
+		directory: path.join(__dirname, "../db/seeds"),
 	},
 } as Knex.Config;
 
