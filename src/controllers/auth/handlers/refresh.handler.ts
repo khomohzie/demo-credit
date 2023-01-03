@@ -23,12 +23,12 @@ const refreshAccessToken = async (
 		const refresh_token = req.headers.cookie as string;
 
 		// Validate the Refresh token
-		const decoded = verifyJwt<{ _id: string }>(
+		const decoded = verifyJwt<{ id: string }>(
 			refresh_token,
 			process.env.JWT_REFRESH_PUBLIC_SECRET
 		);
 
-		if (!decoded || !decoded?._id) {
+		if (!decoded || !decoded?.id) {
 			return next(
 				new CustomException(
 					403,
@@ -38,7 +38,7 @@ const refreshAccessToken = async (
 		}
 
 		// Check if the user has a valid session
-		const session = await redisClient.get(decoded._id?.toString());
+		const session = await redisClient.get(decoded.id?.toString());
 
 		if (!session) {
 			return next(
@@ -50,7 +50,7 @@ const refreshAccessToken = async (
 		}
 
 		// Check if the user exist
-		const user = await new Account(JSON.parse(session)._id).findUser();
+		const user = await new Account(JSON.parse(session).id).findUser();
 
 		if (!user) {
 			return next(
@@ -60,7 +60,11 @@ const refreshAccessToken = async (
 
 		// Sign new access token
 		const accessToken = signJwt(
-			{ _id: user._id },
+			{
+				id: user.id,
+				email: user.email,
+				role: user.role,
+			},
 			process.env.JWT_ACCESS_PRIVATE_SECRET,
 			{
 				expiresIn: `${process.env.ACCESS_TOKEN_EXPIRES_IN}m`,

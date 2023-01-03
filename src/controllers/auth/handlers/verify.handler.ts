@@ -41,7 +41,11 @@ const sendEmail = async (req: Request, res: Response, next: NextFunction) => {
 			<p class="text-xs my-1 text-center">If you did not request this email, kindly ignore it or reach out to support if you think your account is at risk.</p></div>
   		`;
 
-		await transporter(email, "Demo Credit account - Email verification", msg)
+		await transporter(
+			email,
+			"Demo Credit account - Email verification",
+			msg
+		)
 			.then((data: any) => {
 				return new CustomResponse(res).success(
 					`A verification code has been sent to ${email}`,
@@ -96,11 +100,9 @@ const verifyEmail = async (req: Request, res: Response, next: NextFunction) => {
 			return next(new CustomException(400, "Incorrect OTP!"));
 		}
 
-		const updateUser = await User.updateOne(
-			{ email },
-			{ $set: { verified: true } },
-			{ new: true }
-		).exec();
+		const updateUser = await User.query().findOne("email", email).patch({
+			verified: true,
+		});
 
 		const deleteCode = await otp.delete(code);
 
@@ -108,8 +110,8 @@ const verifyEmail = async (req: Request, res: Response, next: NextFunction) => {
 			return next(new CustomException(500, "Something went wrong!"));
 		}
 
-		const user = await User.findOne({ email });
-		// console.log(user);
+		const user = await User.query().findOne("email", email);
+
 		// Create the Access and refresh Tokens
 		const { accessToken, refreshToken } = await generate(user!);
 

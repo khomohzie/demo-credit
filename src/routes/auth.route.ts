@@ -6,28 +6,25 @@ const router: Router = express.Router();
 import {
 	signup,
 	login,
-	// logout,
-	// sendEmail,
-	// verifyEmail,
-	// refresh,
-	// forgot,
-	// reset,
-	// googlefacebooklogin,
+	logout,
+	sendEmail,
+	verifyEmail,
+	refresh,
 } from "../controllers/auth";
 
 import { validate } from "../middlewares/validate.middleware";
-// import { requireSignin } from "../middlewares/auth.middleware";
+import { requireSignin } from "../middlewares/auth.middleware";
 
 import { createUserSchema, loginUserSchema } from "@validator/user.validator";
 
 router.post("/auth/signup", validate(createUserSchema), signup);
 router.post("/auth/login", validate(loginUserSchema), login);
 
-// router.post("/auth/logout", requireSignin, logout);
+router.post("/auth/logout", requireSignin, logout);
 
-// router.post("/auth/resend", sendEmail);
-// router.put("/auth/verify", verifyEmail);
-// router.get("/auth/refresh", refresh);
+router.post("/auth/resend", sendEmail);
+router.put("/auth/verify", verifyEmail);
+router.get("/auth/refresh", refresh);
 
 //Import middleware
 import { logger } from "../middlewares/logger.middleware";

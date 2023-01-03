@@ -1,3 +1,3 @@
-import { profiles } from "./handlers/user.handler";
+import { userProfile, aUserData, profiles } from "./handlers/user.handler";
 
-export { profiles };
+export { userProfile, aUserData, profiles };

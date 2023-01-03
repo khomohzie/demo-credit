@@ -12,8 +12,9 @@ type TGenerate = {
 };
 
 type TVerify = {
-	id: string;
+	id: number;
 	email?: string;
+	role?: string;
 	expiresIn?: any;
 	name?: string;
 	message?: string;
@@ -75,7 +76,7 @@ export const decode = {
 				process.env.JWT_REFRESH_PUBLIC_SECRET
 			);
 
-			const userId = await redisClient.get(decoded!.id);
+			const userId = await redisClient.get(decoded!.id.toString());
 
 			return userId;
 		} catch (err: any) {

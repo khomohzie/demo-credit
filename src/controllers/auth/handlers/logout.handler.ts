@@ -11,7 +11,7 @@ const logout = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const user = req.user;
 
-		await redisClient.del(user._id);
+		await redisClient.del(user.id.toString());
 
 		removeCookies(res);
 
