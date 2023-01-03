@@ -1,0 +1,69 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "type": "object",
+    "title": "User Schema",
+    "required": [
+        "email",
+        "firstname",
+        "lastname",
+        "password"
+    ],
+    "properties": {
+        "id": {
+            "type": "integer",
+            "title": "The id of the user",
+            "examples": [
+                3
+            ]
+        },
+        "email": {
+            "type": "string",
+            "title": "The user's email. It must be unique",
+            "examples": [
+                "example@example.com"
+            ]
+        },
+        "firstname": {
+            "type": "string",
+            "title": "The firstname of the user",
+            "examples": [
+                "Daniel"
+            ]
+        },
+        "lastname": {
+            "type": "string",
+            "title": "The lastname of the user",
+            "examples": [
+                "Komolafe"
+            ]
+        },
+        "password": {
+            "type": "string",
+            "title": "The hashed password of the user"
+        },
+        "created_at": {
+            "type": "string",
+            "title": "When the record was created",
+            "examples": [
+                "2023-01-03T16:08:57.000Z"
+            ]
+        },
+        "updated_at": {
+            "type": "string",
+            "title": "When the record was last updated",
+            "examples": [
+                "2023-01-03T16:08:57.000Z"
+            ]
+        }
+    },
+    "examples": [
+        {
+            "id": 3,
+            "email": "komozy2000@gmail.com",
+            "firstname": "Daniel",
+            "lastname": "Komolafe",
+            "created_at": "2023-01-03T16:08:57.000Z",
+            "updated_at": "2023-01-03T16:08:57.000Z"
+        }
+    ]
+}

@@ -12,7 +12,7 @@ type TGenerate = {
 };
 
 type TVerify = {
-	_id: string;
+	id: string;
 	email?: string;
 	expiresIn?: any;
 	name?: string;
@@ -23,7 +23,11 @@ type TVerify = {
 //  Generate tokens
 export const generate = async (user: IUser): Promise<TGenerate> => {
 	const accessToken = signJwt(
-		{ id: user.id },
+		{
+			id: user.id,
+			email: user.email,
+			role: user.role,
+		},
 		process.env.JWT_ACCESS_PRIVATE_SECRET,
 		{
 			expiresIn: `${process.env.ACCESS_TOKEN_EXPIRES_IN_DAY}d`,
@@ -31,7 +35,11 @@ export const generate = async (user: IUser): Promise<TGenerate> => {
 	);
 
 	const refreshToken = signJwt(
-		{ id: user.id },
+		{
+			id: user.id,
+			email: user.email,
+			role: user.role,
+		},
 		process.env.JWT_REFRESH_PRIVATE_SECRET,
 		{
 			expiresIn: `${process.env.REFRESH_TOKEN_EXPIRES_IN_DAY}d`,
@@ -67,7 +75,7 @@ export const decode = {
 				process.env.JWT_REFRESH_PUBLIC_SECRET
 			);
 
-			const userId = await redisClient.get(decoded!._id);
+			const userId = await redisClient.get(decoded!.id);
 
 			return userId;
 		} catch (err: any) {
@@ -118,58 +126,6 @@ export const validate = {
 		}
 		return false;
 	},
-
-	resetToken: async (email: string, token: string): Promise<boolean> => {
-		try {
-			const resetTokenData = await redisClient.get(
-				prefix.resetToken(token)
-			);
-
-			if (!resetTokenData) return false;
-
-			if (resetTokenData.toLowerCase() === email.toLowerCase()) {
-				return true;
-			}
-			return false;
-		} catch (err: any) {
-			throw new Error(err);
-		}
-	},
-
-	// Check is a user requested a code less than 10 minutes ago
-	resetUser: async (email: string): Promise<boolean> => {
-		try {
-			const resetUserData = await redisClient.exists(
-				prefix.resetUser(email)
-			);
-
-			if (!resetUserData) {
-				return false;
-			}
-			return true;
-		} catch (err: any) {
-			throw new Error(err);
-		}
-	},
-
-	// Check is a user requested a code less than 15 minutes ago
-	// verifyToken: async (token: string): Promise<boolean> => {
-	//   try {
-	//     const verifyTokenTTL = await redisClient.ttl(prefix.verifyToken(token));
-
-	//     const resendTimeLimit =
-	//       redisConfig.constants.VERIFY_TOKEN_DURATION * 0.25;
-
-	//     const isReady = verifyTokenTTL <= resendTimeLimit;
-
-	//     if (!verifyTokenTTL || !isReady) {
-	//       return false;
-	//     }
-	//     return true;
-	//   } catch (err: any) {
-	//     throw new Error(err);
-	//   }
-	// },
 };
 
 //  Encrypt data

@@ -3,6 +3,7 @@ import { Request } from "express";
 import { IUser } from "./src/interfaces/auth.interfaces";
 import { TUser } from "./src/models/user.model";
 import mongoose from "mongoose";
+import nodemailer, { TransportOptions, Transporter, Transport } from "nodemailer";
 
 declare global {
 	namespace NodeJS {
@@ -35,6 +36,26 @@ declare global {
 		export interface Request {
 			user: { _id: string; email?: string; expiresIn?: any };
 		}
+	}
+}
+
+declare module 'nodemailer' {
+	export interface TransportOptions {
+		host?: string;
+		service?: string;
+		auth: {};
+	}
+
+	export interface Transporter {
+		host?: string;
+		service?: string;
+		auth: {};
+	}
+	
+	export interface Transport {
+		host?: string;
+		service?: string;
+		auth: {};
 	}
 }
 
