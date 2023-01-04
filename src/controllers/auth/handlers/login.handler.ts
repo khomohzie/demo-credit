@@ -24,7 +24,10 @@ const login = async (
 		const { email, password } = req.body;
 
 		// Find the user by email or username
-		const user = await User.query().where({ email }).first();
+		const user = await User.query()
+			.where({ email })
+			.andWhere("deleted_at", null)
+			.first();
 
 		// If the account is not found
 		if (!user) {
