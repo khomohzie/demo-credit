@@ -33,6 +33,7 @@ declare global {
 			ACTIVATION_TOKEN_EXPIRES_IN: number;
 			ACCESS_TOKEN_EXPIRES_IN_DAY: number;
 			REFRESH_TOKEN_EXPIRES_IN_DAY: number;
+			PAYSTACK_SECRET: string;
 		}
 	}
 
