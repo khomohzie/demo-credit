@@ -13,14 +13,6 @@ const userProfile = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const user = await User.query()
 			.findById(req.user.id)
-			.select(
-				"id",
-				"email",
-				"firstname",
-				"lastname",
-				"created_at",
-				"updated_at"
-			)
 			.where("deleted_at", null);
 
 		if (!user)
@@ -57,14 +49,6 @@ const aUserData = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const user = await User.query()
 			.findById(req.params.id)
-			.select(
-				"id",
-				"email",
-				"firstname",
-				"lastname",
-				"created_at",
-				"updated_at"
-			)
 			.where("deleted_at", null);
 
 		if (!user)
@@ -98,16 +82,7 @@ const aUserData = async (req: Request, res: Response, next: NextFunction) => {
 
 const profiles = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const users = await User.query()
-			.select(
-				"id",
-				"email",
-				"firstname",
-				"lastname",
-				"created_at",
-				"updated_at"
-			)
-			.where("deleted_at", null);
+		const users = await User.query().where("deleted_at", null);
 
 		if (!users)
 			return next(
