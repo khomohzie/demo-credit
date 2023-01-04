@@ -1,6 +1,7 @@
 import { Model, Pojo } from "objection";
 import { tableNames } from "src/db/table_names";
 import { IWallet } from "src/interfaces/wallet.interfaces";
+import schema from "../schema/wallet.schema.json";
 
 class Wallet extends Model implements IWallet {
 	id!: number;
@@ -20,9 +21,9 @@ class Wallet extends Model implements IWallet {
 		return tableNames.wallet;
 	}
 
-	// static get jsonSchema() {
-	//     return schema;
-	// }
+	static get jsonSchema() {
+		return schema;
+	}
 
 	$formatJson(json: Pojo) {
 		json = super.$formatJson(json);

@@ -1,0 +1,56 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "type": "object",
+    "title": "Wallet Schema",
+    "required": [
+        "user_id",
+        "wallet_tag",
+        "account_number",
+        "pin"
+    ],
+    "properties": {
+        "user_id": {
+            "type": "integer",
+            "title": "The user_id of the user",
+            "examples": [
+                3
+            ]
+        },
+        "wallet_tag": {
+            "type": "string",
+            "title": "The wallet_tag of the user",
+            "examples": [
+                "danielkomolafe"
+            ]
+        },
+        "account_number": {
+            "type": "string",
+            "title": "The account_number of the user",
+            "examples": [
+                "00299312568"
+            ]
+        },
+        "pin": {
+            "type": "string",
+            "title": "The pin of the user",
+            "examples": [
+                "1234"
+            ]
+        }
+    },
+    "examples": [
+        {
+            "id": 3,
+            "user_id": 3,
+            "wallet_tag": "danielkomolafe",
+            "account_number": "00299312568",
+            "balance": 0,
+            "debt": 0,
+            "fin_status": "broke",
+            "can_transact": 0,
+            "created_at": "2023-01-03T16:08:58.000Z",
+            "updated_at": "2023-01-03T16:08:58.000Z",
+            "deleted_at": null
+        }
+    ]
+}

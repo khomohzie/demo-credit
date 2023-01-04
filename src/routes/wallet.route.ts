@@ -3,12 +3,13 @@ import express, { Router } from "express";
 const router: Router = express.Router();
 
 //Import Controller
-import { retrieveMyWallet } from "../controllers/wallet";
+import { createWallet, retrieveMyWallet } from "../controllers/wallet";
 
 //Import middleware
 import { logger } from "../middlewares/logger.middleware";
 import { requireSignin, isVerified } from "../middlewares/auth.middleware";
 
+router.post("/wallet/me", requireSignin, createWallet);
 router.get("/wallet/me", requireSignin, isVerified, retrieveMyWallet);
 
 // Security routes
