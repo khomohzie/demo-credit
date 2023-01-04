@@ -140,8 +140,11 @@ export const isVerified = async (
 ) => {
 	try {
 		const user = await User.query()
-			.where("id", req.user?.id)
-			.orWhere("email", req.body?.email)
+			.where((builder) => {
+				builder
+					.where("id", req.user?.id)
+					.orWhere("email", req.body?.email ?? "");
+			})
 			.first();
 
 		if (!user?.verified) {
