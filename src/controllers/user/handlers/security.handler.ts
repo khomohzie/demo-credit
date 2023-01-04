@@ -3,6 +3,7 @@ import CustomException from "@utils/handlers/error.handler";
 import CustomResponse from "@utils/handlers/response.handler";
 import { NextFunction, Request, Response } from "express";
 import moment from "moment";
+import { tableNames } from "src/db/table_names";
 import User from "../../../models/user.model";
 
 /**
@@ -21,6 +22,13 @@ const deleteAccount = async (
 	try {
 		await User.query()
 			.findById(req.user.id)
+			.patch({
+				deleted_at: moment().format("YYYY-MM-DD HH:mm:ss"),
+			});
+
+		await User.relatedQuery(tableNames.wallet)
+			.for(req.user.id)
+			.findOne("deleted_at", null)
 			.patch({
 				deleted_at: moment().format("YYYY-MM-DD HH:mm:ss"),
 			});
