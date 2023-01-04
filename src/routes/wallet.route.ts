@@ -3,7 +3,11 @@ import express, { Router } from "express";
 const router: Router = express.Router();
 
 //Import Controller
-import { createWallet, retrieveMyWallet } from "../controllers/wallet";
+import {
+	createWallet,
+	retrieveMyWallet,
+	changeWalletPin,
+} from "../controllers/wallet";
 
 //Import middleware
 import { logger } from "../middlewares/logger.middleware";
@@ -13,9 +17,7 @@ router.post("/wallet/me", requireSignin, createWallet);
 router.get("/wallet/me", requireSignin, isVerified, retrieveMyWallet);
 
 // Security routes
-// router.put("/user/me/password", requireSignin, changePassword);
-
-// router.delete("/user/me/delete", requireSignin, deleteAccount);
+router.put("/wallet/me", requireSignin, isVerified, changeWalletPin);
 
 logger({
 	allowed: ["status", "host", "method", "protocol", "path"],

@@ -8,6 +8,12 @@ import filter from "@utils/filter.util";
 import CustomException from "@utils/handlers/error.handler";
 import CustomResponse from "@utils/handlers/response.handler";
 
+/**
+ * @route POST /api/wallet/me
+ * @desc Create a wallet for user
+ * @access Public
+ */
+
 const createWallet = async (
 	req: Request,
 	res: Response,
