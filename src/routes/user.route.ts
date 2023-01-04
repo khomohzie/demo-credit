@@ -1,9 +1,19 @@
 import express, { Router } from "express";
+import formidable from "express-formidable-typescript";
 
 const router: Router = express.Router();
 
 //Import Controller
-import { profiles, aUserData, userProfile } from "../controllers/user";
+import {
+	updateProfile,
+	changeAvatar,
+	profiles,
+	aUserData,
+	userProfile,
+	changePassword,
+	deleteAccount,
+	deleteAll,
+} from "../controllers/user";
 
 //Import middleware
 import { logger } from "../middlewares/logger.middleware";
@@ -13,6 +23,15 @@ router.get("/user/all", requireSignin, isAdmin, profiles);
 router.get("/user/data/:id", requireSignin, isAdmin, aUserData);
 
 router.get("/user/me", requireSignin, userProfile);
+router.put("/user/me", requireSignin, formidable(), updateProfile);
+
+router.put("/user/avatar", requireSignin, formidable(), changeAvatar);
+
+// Security routes
+router.put("/user/me/password", requireSignin, changePassword);
+
+router.delete("/user/me/delete", requireSignin, deleteAccount);
+router.delete("/user/all/delete", requireSignin, isAdmin, deleteAll);
 
 logger({
 	allowed: ["status", "host", "method", "protocol", "path"],

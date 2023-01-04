@@ -24,5 +24,5 @@ export interface IUser {
 	phone_number?: string;
 	role: string;
 	verified: boolean;
-	deleted_at: Date;
+	deleted_at: string;
 }
