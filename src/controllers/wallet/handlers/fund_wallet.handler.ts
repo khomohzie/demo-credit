@@ -97,39 +97,4 @@ const fundWallet = async (req: Request, res: Response, next: NextFunction) => {
 	}
 };
 
-const verifyFunding = async (
-	req: Request,
-	res: Response,
-	next: NextFunction
-) => {
-	try {
-		if (!req.query.reference) {
-			return next(new CustomException(400, "No reference id provided"));
-		}
-
-		const [status, data] = await new TransactionService({
-			sender_id: req.user.id,
-		}).verifyTransaction(req.query.reference as string);
-
-		if (!status) {
-			return next(
-				new CustomException(
-					400,
-					"Failed to fund account! Please try again.",
-					data
-				)
-			);
-		}
-
-		return new CustomResponse(res).success(
-			"Funded account successfully!",
-			data,
-			200
-		);
-	} catch (error) {
-		console.log(error);
-		return next(error);
-	}
-};
-
-export { fundWallet, verifyFunding };
+export default fundWallet;

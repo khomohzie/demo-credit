@@ -3,7 +3,7 @@
     "type": "object",
     "title": "Reference Schema",
     "required": [
-        "refernce_id",
+        "reference_id",
         "sender_id",
         "recipient_id",
         "recipient_account",
