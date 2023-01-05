@@ -56,6 +56,7 @@
     "nodemailer": "^6.8.0",
     "objection": "^3.0.1",
     "paystack": "^2.0.1",
+    "paystack-api": "^2.0.6",
     "peer": "^0.6.1",
     "rand-token": "^1.0.1",
     "redis": "^4.5.1",

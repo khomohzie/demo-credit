@@ -2,7 +2,7 @@ import { Model } from "objection";
 import { tableNames } from "src/db/table_names";
 import { IReference } from "src/interfaces/transaction.interfaces";
 import Transaction from "./transaction.model";
-// import schema from "../schema/reference.schema.json";
+import schema from "../schema/reference.schema.json";
 
 class Reference extends Model implements IReference {
 	id!: number;
@@ -20,9 +20,9 @@ class Reference extends Model implements IReference {
 		return tableNames.reference;
 	}
 
-	// static get jsonSchema() {
-	// 	return schema;
-	// }
+	static get jsonSchema() {
+		return schema;
+	}
 
 	// This object defines the relations to other models.
 	static get relationMappings() {

@@ -6,6 +6,7 @@ export interface ITransaction {
 	recipient_account: string;
 	description?: string;
 	category: string;
+	amount: number;
 	status: string;
 	created_at: string;
 	updated_at: string;
@@ -26,10 +27,8 @@ export interface IReference {
 }
 
 export interface ITransactionService {
-	sender_id: number;
-	recipient_id: number;
-	recipient_account: string;
-	category: string;
-	description: string;
-	amount: number;
+	sender_id?: number;
+	recipient_id?: number;
+	recipient_account?: string;
+	amount?: number;
 }

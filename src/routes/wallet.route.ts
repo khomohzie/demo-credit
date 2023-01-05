@@ -7,6 +7,8 @@ import {
 	createWallet,
 	retrieveMyWallet,
 	changeWalletPin,
+	fundWallet,
+	verifyFunding,
 } from "../controllers/wallet";
 
 //Import middleware
@@ -15,6 +17,9 @@ import { requireSignin, isVerified } from "../middlewares/auth.middleware";
 
 router.post("/wallet/me", requireSignin, createWallet);
 router.get("/wallet/me", requireSignin, isVerified, retrieveMyWallet);
+
+router.post("/wallet/fund", requireSignin, isVerified, fundWallet);
+router.post("/wallet/verify", requireSignin, isVerified, verifyFunding);
 
 // Security routes
 router.put("/wallet/me", requireSignin, isVerified, changeWalletPin);

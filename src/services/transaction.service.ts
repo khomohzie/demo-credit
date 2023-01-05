@@ -1,4 +1,4 @@
-import Paystack from "paystack";
+import Paystack from "paystack-api";
 import Account from "./account.service";
 import { v4 as uuidv4 } from "uuid";
 import Transaction from "src/models/transaction.model";
@@ -14,35 +14,27 @@ class TransactionService extends Account {
 	private sender_id!: number;
 	private recipient_id!: number;
 	private recipient_account!: string;
-	private category!: string;
-	private description!: string;
 	private amount!: number;
 
 	constructor({
 		sender_id,
 		recipient_id,
 		recipient_account,
-		category,
-		description,
 		amount,
 	}: ITransactionService) {
-		super(sender_id);
+		super(sender_id!);
 
-		this.sender_id = sender_id;
-		this.recipient_id = recipient_id;
-		this.recipient_account = recipient_account;
-		this.category = category;
-		this.description = description;
-		this.amount = amount;
+		this.sender_id = sender_id!;
+		this.recipient_id = recipient_id!;
+		this.recipient_account = recipient_account!;
+		this.amount = amount!;
 	}
 
-	private transaction!: Transaction;
-
-	async addTransaction(): Promise<Array<boolean | Reference | string>> {
+	async addTransaction() {
 		const user = await this.findUser();
 		if (!user) return [false, "User does not exist"];
 
-		const [status, reference] = await this.#createReference();
+		const [status, reference] = await this.createReference();
 
 		if (!status) return [false, reference];
 
@@ -50,7 +42,7 @@ class TransactionService extends Account {
 	}
 
 	async verifyTransaction(reference: IReference["reference_id"]) {
-		const verifyRef = await paystack.transaction.verify(reference);
+		const verifyRef = await paystack.transaction.verify({ reference });
 
 		if (!verifyRef) {
 			return [false, "PayStack payment error"];
@@ -61,11 +53,11 @@ class TransactionService extends Account {
 		}
 
 		if (verifyRef.data.status == "success") {
-			const refExist = await this.#getReference(verifyRef.data.reference);
+			const refExist = await this.getReference(verifyRef.data.reference);
 
 			if (refExist) {
 				if (!refExist.is_successful) {
-					const editedRef = await this.#editReferenceSuccess(
+					const editedRef = await this.editReferenceSuccess(
 						verifyRef.data.reference
 					);
 
@@ -76,17 +68,16 @@ class TransactionService extends Account {
 						if (!sender?.id)
 							return [false, "Unable to find sender id"];
 
-						this.transaction = await Transaction.query().insert({
-							sender_id: this.sender_id,
-							recipient_id: this.recipient_id,
-							recipient_account: this.recipient_account,
-							category: this.category,
-							status: "successful",
-							description: this.description,
-							transaction_hash: verifyRef.data.reference,
-						});
+						const updated = await Transaction.query()
+							.findOne(
+								"transaction_hash",
+								verifyRef.data.reference
+							)
+							.patch({
+								status: "successful",
+							});
 
-						return [true, this.transaction];
+						return [true, updated];
 					}
 
 					return [
@@ -107,7 +98,7 @@ class TransactionService extends Account {
 		return [false, "Transaction unsuccessful"];
 	}
 
-	async #createReference(): Promise<Array<boolean | Reference>> {
+	private async createReference(): Promise<Array<boolean | Reference>> {
 		return await Reference.query()
 			.insert({
 				reference_id: uuidv4(),
@@ -124,11 +115,13 @@ class TransactionService extends Account {
 			});
 	}
 
-	async #getReference(reference_id: IReference["reference_id"]) {
+	private async getReference(reference_id: IReference["reference_id"]) {
 		return await Reference.query().findOne("reference_id", reference_id);
 	}
 
-	async #editReferenceSuccess(reference_id: IReference["reference_id"]) {
+	private async editReferenceSuccess(
+		reference_id: IReference["reference_id"]
+	) {
 		return await Reference.query()
 			.findOne("reference_id", reference_id)
 			.patch({ is_successful: true });

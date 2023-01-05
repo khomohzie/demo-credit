@@ -1,0 +1,56 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "type": "object",
+    "title": "Reference Schema",
+    "required": [
+        "refernce_id",
+        "sender_id",
+        "recipient_id",
+        "recipient_account",
+        "amount"
+    ],
+    "properties": {
+        "reference_id": {
+            "type": "string",
+            "title": "The reference id or transaction hash",
+            "examples": [
+                "829kd9jd92jd29kd20"
+            ]
+        },
+        "sender_id": {
+            "type": "integer",
+            "title": "The sender's id. Who is initiating this transaction?",
+            "examples": [
+                3
+            ]
+        },
+        "recipient_id": {
+            "type": "integer",
+            "title": "The recipient's id. Who is receiving this money?",
+            "examples": [
+                6
+            ]
+        },
+        "recipient_account": {
+            "type": "string",
+            "title": "The account number of the recipient",
+            "examples": [
+                "53678390312"
+            ]
+        },
+        "amount": {
+            "type": "integer",
+            "title": "The amount to pay"
+        }
+    },
+    "examples": [
+        {
+            "id": 3,
+            "email": "komozy2000@gmail.com",
+            "firstname": "Daniel",
+            "lastname": "Komolafe",
+            "created_at": "2023-01-03T16:08:57.000Z",
+            "updated_at": "2023-01-03T16:08:57.000Z"
+        }
+    ]
+}

@@ -7,10 +7,6 @@ const addDefaultColumns = (table: Knex.CreateTableBuilder) => {
 };
 
 export async function up(knex: Knex): Promise<void> {
-	await knex.schema.alterTable(tableNames.user, (table) => {
-		table.dropColumn("bvn");
-	});
-
 	await knex.schema.dropTableIfExists(tableNames.transaction);
 
 	await knex.schema.createTable(tableNames.reference, (table) => {
@@ -41,6 +37,7 @@ export async function up(knex: Knex): Promise<void> {
 			table.integer("recipient_id").unsigned();
 			table.string("recipient_account").notNullable();
 			table.string("description", 255);
+			table.integer("amount").unsigned().notNullable();
 			table
 				.enu("category", ["deposit", "withdrawal", "transfer"])
 				.notNullable();

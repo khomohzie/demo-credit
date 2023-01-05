@@ -13,7 +13,6 @@ export async function up(knex: Knex): Promise<void> {
 		table.string("firstname", 50).notNullable();
 		table.string("lastname", 50).notNullable();
 		table.string("password", 127).notNullable();
-		table.string("bvn", 11);
 		table
 			.string("avatar", 2000)
 			.defaultTo(
