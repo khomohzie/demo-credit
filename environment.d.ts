@@ -34,6 +34,7 @@ declare global {
 			ACCESS_TOKEN_EXPIRES_IN_DAY: number;
 			REFRESH_TOKEN_EXPIRES_IN_DAY: number;
 			PAYSTACK_SECRET: string;
+			CLIENT_URL: string;
 		}
 	}
 

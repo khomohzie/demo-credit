@@ -35,6 +35,7 @@
   },
   "homepage": "https://github.com/khomohzie/demo-credit#readme",
   "dependencies": {
+    "axios": "^1.2.2",
     "bcrypt": "^5.1.0",
     "chalk": "4.1.2",
     "cloudinary": "^1.33.0",
