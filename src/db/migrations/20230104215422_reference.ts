@@ -1,5 +1,5 @@
 import { Knex } from "knex";
-import { orderedTableNames, tableNames } from "../table_names";
+import { tableNames } from "../table_names";
 
 const addDefaultColumns = (table: Knex.CreateTableBuilder) => {
 	table.timestamps(false, true);
@@ -20,6 +20,7 @@ export async function up(knex: Knex): Promise<void> {
 		table.integer("recipient_id").unsigned().notNullable();
 		table.string("recipient_account").notNullable();
 		table.integer("amount").unsigned().notNullable();
+		table.boolean("is_successful").notNullable().defaultTo(false);
 		addDefaultColumns(table);
 
 		// Foreign key constraints
@@ -63,7 +64,6 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 export async function down(knex: Knex): Promise<void> {
-	await Promise.all(
-		orderedTableNames.map((tableName) => knex.schema.dropTable(tableName))
-	);
+	await knex.schema.dropTable(tableNames.transaction);
+	await knex.schema.dropTable(tableNames.reference);
 }
