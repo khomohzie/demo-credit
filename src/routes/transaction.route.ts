@@ -3,13 +3,15 @@ import express, { Router } from "express";
 const router: Router = express.Router();
 
 //Import Controller
-import verifyTransaction from "../controllers/transaction/transaction.controller";
+import { transferFunds, verifyTransaction } from "src/controllers/transaction";
 
 //Import middleware
 import { logger } from "../middlewares/logger.middleware";
 import { requireSignin, isVerified } from "../middlewares/auth.middleware";
 
 router.post("/transaction/verify", requireSignin, verifyTransaction);
+
+router.put("/transaction/transfer", requireSignin, isVerified, transferFunds);
 
 logger({
 	allowed: ["status", "host", "method", "protocol", "path"],

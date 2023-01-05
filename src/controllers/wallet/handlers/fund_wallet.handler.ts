@@ -19,7 +19,7 @@ const paystack = Paystack(process.env.PAYSTACK_SECRET);
 
 const fundWallet = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const { category, description, amount } = req.body;
+		const { description, amount } = req.body;
 
 		// Just because Paystack requires the user's name and email address.
 		const user = await User.query().findOne("id", req.user.id);
@@ -64,7 +64,7 @@ const fundWallet = async (req: Request, res: Response, next: NextFunction) => {
 						recipient_account: wallet.account_number,
 						status: "pending",
 						transaction_hash: response.data.reference,
-						category,
+						category: "deposit",
 						description,
 						amount,
 					});
