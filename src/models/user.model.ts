@@ -10,7 +10,6 @@ class User extends Model implements IUser {
 	lastname!: string;
 	email!: string;
 	password!: string;
-	bvn?: string;
 	avatar!: string;
 	phone_number?: string;
 	role!: string;

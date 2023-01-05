@@ -19,7 +19,6 @@ export interface IUser {
 	lastname: string;
 	email: string;
 	password: string;
-	bvn?: string;
 	avatar: string;
 	phone_number?: string;
 	role: string;
