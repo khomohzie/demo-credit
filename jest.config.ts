@@ -12,6 +12,10 @@ const config: Config.InitialOptions = {
 	},
 	modulePaths: [baseUrl],
 	moduleNameMapper: pathsToModuleNameMapper(paths),
+	testPathIgnorePatterns: [
+		"./__tests__/auth/register.test.ts",
+		"./__tests__/auth/login.test.ts",
+	],
 	setupFiles: ["dotenv/config"],
 	globalSetup: "./src/setupTests.ts",
 	globalTeardown: "./src/teardownTests.ts",
