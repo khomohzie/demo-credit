@@ -1,11 +1,13 @@
 import knex, { Knex } from "knex";
 import { Model } from "objection";
 
-import { development } from "./knex.config";
+import { development, test } from "./knex.config";
+
+const environment = process.env.NODE_ENV == "test" ? test : development;
 
 // Create connection
 export async function connect(): Promise<void> {
-	const db: Knex<any, unknown[]> = knex(development);
+	const db: Knex<any, unknown[]> = knex(environment);
 
 	Model.knex(db);
 
@@ -20,9 +22,19 @@ export async function connect(): Promise<void> {
 }
 
 export async function disconnect(): Promise<void> {
-	await knex(development)
+	await knex(environment)
 		.destroy()
 		.then(() => {
 			console.log("Disconnected from knex");
 		});
+}
+
+// Create tables in database for testing
+export async function migrate(): Promise<void> {
+	await knex(environment).migrate.latest();
+}
+
+// Create tables in database for testing
+export async function rollback(): Promise<void> {
+	await knex(environment).migrate.rollback();
 }

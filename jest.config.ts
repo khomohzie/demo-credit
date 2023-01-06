@@ -12,6 +12,9 @@ const config: Config.InitialOptions = {
 	},
 	modulePaths: [baseUrl],
 	moduleNameMapper: pathsToModuleNameMapper(paths),
+	setupFiles: ["dotenv/config"],
+	globalSetup: "./src/setupTests.ts",
+	globalTeardown: "./src/teardownTests.ts",
 };
 
 export default config;

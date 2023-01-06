@@ -19,6 +19,7 @@ declare global {
 			DB_USER: string;
 			DB_PASSWORD: string;
 			DB_NAME: string;
+			DB_NAME_TEST: string;
 			JWT_ACCESS_PRIVATE_SECRET: Secret;
 			JWT_ACCESS_PUBLIC_SECRET: Secret;
 			JWT_REFRESH_PRIVATE_SECRET: Secret;

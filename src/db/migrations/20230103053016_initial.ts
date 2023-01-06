@@ -47,7 +47,6 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 export async function down(knex: Knex): Promise<void> {
-	await Promise.all(
-		orderedTableNames.map((tableName) => knex.schema.dropTable(tableName))
-	);
+	await knex.schema.dropTable(tableNames.wallet);
+	await knex.schema.dropTable(tableNames.user);
 }
