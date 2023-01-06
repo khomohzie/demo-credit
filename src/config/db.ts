@@ -1,9 +1,14 @@
 import knex, { Knex } from "knex";
 import { Model } from "objection";
 
-import { development, test } from "./knex.config";
+import { development, production, test } from "./knex.config";
 
-const environment = process.env.NODE_ENV == "test" ? test : development;
+const environment =
+	process.env.NODE_ENV == "development"
+		? development
+		: process.env.NODE_ENV == "production"
+		? production
+		: test;
 
 // Create connection
 export async function connect(): Promise<void> {

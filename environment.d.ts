@@ -36,6 +36,11 @@ declare global {
 			REFRESH_TOKEN_EXPIRES_IN_DAY: number;
 			PAYSTACK_SECRET: string;
 			CLIENT_URL: string;
+			DB_HOST_PROD: string;
+			DB_PORT_PROD: number;
+			DB_USER_PROD: string;
+			DB_PASSWORD_PROD: string;
+			DB_NAME_PROD: string;
 		}
 	}
 
