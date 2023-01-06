@@ -13,12 +13,37 @@ describe("Login a user", () => {
 			})
 			.expect(200);
 
+		await redisClient
+			.connect()
+			.then(() => {
+				console.log("🛠\tRedis - Connection open for testing");
+			})
+			.catch((err: any) => {
+				console.log(err);
+			});
+
+		// Save access token in redis
+		await redisClient.set(
+			"test_user_access_token",
+			response.body.data.accessToken,
+			{
+				EX: 60,
+			}
+		);
+
+		// Verify that it is saved in redis
+		const accessToken = await redisClient.get("test_user_access_token");
+
+		expect(accessToken).toBe(response.body.data.accessToken);
+
 		expect(response.body.message).toBe("Welcome back!");
 
 		expect(response.body.meta).toMatchObject({
 			type: "success",
 			action: "Login",
 		});
+
+		await redisClient.disconnect();
 	});
 
 	it("Should throw an incorrect password error", async () => {
@@ -46,7 +71,7 @@ describe("Login a user", () => {
 	});
 
 	// Note: this user already exists in db due to seeding in the setupTests.ts
-	it("Should save the access token in redis after login", async () => {
+	it("Should save the admin's access token in redis after login", async () => {
 		const response = await agent
 			.post("/api/auth/login")
 			.send({
