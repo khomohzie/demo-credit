@@ -13,6 +13,8 @@ if (process.env.NODE_ENV === "development") {
 const redisClient: redis.RedisClientType =
 	process.env.NODE_ENV === "development"
 		? redis.createClient()
+		: process.env.NODE_ENV === "test"
+		? redis.createClient()
 		: redis.createClient({ url: process.env.REDIS_URL });
 
 // Log connection status

@@ -12,6 +12,7 @@ export async function seed(knex: Knex): Promise<void> {
 	}, Promise.resolve());
 
 	const hashedPassword = await encrypt.password("hunterhexhunter");
+	const hashedPin = await encrypt.password("1234");
 
 	const user = {
 		email: "komozy2000@gmail.com",
@@ -26,10 +27,10 @@ export async function seed(knex: Knex): Promise<void> {
 
 	await knex(tableNames.wallet).insert([
 		{
-			user_id: 3,
+			user_id: 1,
 			wallet_tag: "danielkomolafe",
 			account_number: "00299312568",
-			pin: "1234",
+			pin: hashedPin,
 		},
 	]);
 }

@@ -34,7 +34,12 @@ export async function migrate(): Promise<void> {
 	await knex(environment).migrate.latest();
 }
 
-// Create tables in database for testing
+// Drop tables in database for testing
 export async function rollback(): Promise<void> {
 	await knex(environment).migrate.rollback();
+}
+
+// Pre-save values in database for testing
+export async function seed(): Promise<void> {
+	await knex(environment).seed.run();
 }
