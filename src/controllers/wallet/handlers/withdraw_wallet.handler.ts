@@ -7,6 +7,7 @@ import Transaction from "src/models/transaction.model";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { raw } from "objection";
+import { compare } from "@utils/auth.util";
 
 /**
  * @route POST /api/wallet/withdraw
@@ -20,8 +21,14 @@ const withdrawFromWallet = async (
 	next: NextFunction
 ) => {
 	try {
-		const { account_name, account_number, bank_code, description, amount } =
-			req.body;
+		const {
+			pin,
+			account_name,
+			account_number,
+			bank_code,
+			description,
+			amount,
+		} = req.body;
 
 		const wallet = await Wallet.query()
 			.findOne("user_id", req.user.id)
@@ -39,6 +46,18 @@ const withdrawFromWallet = async (
 
 		// Declare a variable to store reference_id later.
 		let reference_id: string;
+
+		// Users will enter their pin to make transfers
+		const verifyPin = await compare.password(pin, wallet.pin);
+
+		if (!verifyPin) {
+			return next(
+				new CustomException(401, "Wrong pin!", {
+					path: "withdraw from wallet",
+					reason: "wrong pin",
+				})
+			);
+		}
 
 		if (wallet.debt === 0 && wallet.balance >= amount) {
 			await Reference.query()

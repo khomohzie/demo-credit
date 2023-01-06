@@ -41,12 +41,12 @@ describe("Admin retrieve user(s) profile", () => {
 		const accessToken = await redisClient.get("test_admin_access_token");
 
 		const response = await agent
-			.get(`/api/user/data/${2}`)
+			.get(`/api/user/data/${3}`)
 			.set("Authorization", `Bearer ${accessToken}`)
 			.expect(200);
 
 		expect(response.body.data).toMatchObject({
-			id: 2,
+			id: 3,
 			email: "example@test.com",
 			firstname: "Dhriti",
 			lastname: "Ramad",
@@ -102,7 +102,7 @@ describe("A user can retrieve their profile", () => {
 			.expect(200);
 
 		expect(response.body.data).toMatchObject({
-			id: 2,
+			id: 3,
 			email: "example@test.com",
 			firstname: "Dhriti",
 			lastname: "Ramad",

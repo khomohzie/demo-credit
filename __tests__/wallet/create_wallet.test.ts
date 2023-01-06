@@ -27,9 +27,9 @@ describe("Create a wallet", () => {
 		expect(response.body.message).toBe("Wallet created successfully");
 		expect(response.body.meta.status).toBe("success");
 		expect(response.body.data).toMatchObject({
-			user_id: 2,
+			user_id: 3,
 			wallet_tag: "dhritiramad",
-			id: 2,
+			id: 3,
 		});
 
 		await redisClient.disconnect();
