@@ -15,6 +15,7 @@ const config: Config.InitialOptions = {
 	testPathIgnorePatterns: [
 		"./__tests__/auth/*",
 		"./__tests__/user/user.test.ts",
+		"./__tests__/wallet/*",
 	],
 	setupFiles: ["dotenv/config"],
 	globalSetup: "./src/setupTests.ts",

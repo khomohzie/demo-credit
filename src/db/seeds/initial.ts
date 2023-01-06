@@ -20,6 +20,7 @@ export async function seed(knex: Knex): Promise<void> {
 		lastname: "Komolafe",
 		password: hashedPassword,
 		role: "admin",
+		verified: true,
 	};
 
 	// Inserts seed entries
