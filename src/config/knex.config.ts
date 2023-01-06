@@ -33,7 +33,6 @@ const test = {
 		database: process.env.DB_NAME_TEST,
 	},
 	pool: { min: 0, max: 7 },
-	debug: true,
 	migrations: {
 		directory: path.join(__dirname, "../db/migrations"),
 	},

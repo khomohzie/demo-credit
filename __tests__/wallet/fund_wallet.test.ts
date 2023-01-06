@@ -28,7 +28,10 @@ describe("Fund a user's wallet", () => {
 		// Save the reference id in redis so we can use it for the "verify transaction" test
 		await redisClient.set(
 			"transaction_reference_id",
-			response.body.data.reference
+			response.body.data.reference,
+			{
+				EX: 60,
+			}
 		);
 
 		expect(response.body.message).toBe(
