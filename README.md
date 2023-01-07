@@ -1,4 +1,4 @@
--   Application Name: demo-credit
+-   Application Name: [demo-credit](https://danielkomolafe-lendsqr-be-test.up.railway.app/)
 -   Start Date: January 2nd, 2023
 
 # About
