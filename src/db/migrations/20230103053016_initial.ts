@@ -1,5 +1,13 @@
 import { Knex } from "knex";
-import { orderedTableNames, tableNames } from "../table_names";
+// import moment from "moment";
+import { tableNames } from "../table_names";
+
+/**
+ * //* Some MySQL servers do not support the function `table.timestamps(false, true);` because it adds
+ * //* 'CURRRENT_TIMESTAMP' as the default value of the created_at and updated_at fields.
+ * //* In case the above happens, uncomment the commented lines that use momentjs to add the default values
+ * //* of the created_at and updated_at fields instead. Also remove `table.timestamps(false, true);`
+ */
 
 const addDefaultColumns = (table: Knex.CreateTableBuilder) => {
 	table.timestamps(false, true);
@@ -21,6 +29,14 @@ export async function up(knex: Knex): Promise<void> {
 		table.string("phone_number", 12);
 		table.enu("role", ["admin", "user"]).notNullable().defaultTo("user");
 		table.boolean("verified").notNullable().defaultTo(false);
+		// table
+		// 	.datetime("created_at")
+		// 	.notNullable()
+		// 	.defaultTo(moment().format("YYYY-MM-DD HH:mm:ss"));
+		// table
+		// 	.datetime("updated_at")
+		// 	.notNullable()
+		// 	.defaultTo(moment().format("YYYY-MM-DD HH:mm:ss"));
 		addDefaultColumns(table);
 	});
 
@@ -32,11 +48,14 @@ export async function up(knex: Knex): Promise<void> {
 		table.string("pin").notNullable();
 		table.integer("balance").unsigned().notNullable().defaultTo(0);
 		table.integer("debt").notNullable().defaultTo(0);
-		table
-			.enu("fin_status", ["broke", "rich"])
-			.notNullable()
-			.defaultTo("broke");
-		table.boolean("can_transact").notNullable().defaultTo(false);
+		// table
+		// 	.datetime("created_at")
+		// 	.notNullable()
+		// 	.defaultTo(moment().format("YYYY-MM-DD HH:mm:ss"));
+		// table
+		// 	.datetime("updated_at")
+		// 	.notNullable()
+		// 	.defaultTo(moment().format("YYYY-MM-DD HH:mm:ss"));
 		addDefaultColumns(table);
 
 		// Foreign key constraints
