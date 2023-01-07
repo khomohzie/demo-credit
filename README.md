@@ -30,6 +30,12 @@ This proposes an MVP (Minimum viable product) wallet service:
 -   Start server with `yarn run dev` or `npm run dev`
 -   Server will be running on http://localhost:4000 or otherwise as configured in your `.env` file.
 
+## E-R Diagram
+
+https://dbdesigner.page.link/vQmhAkVMzdGntF558
+
+![](./public/uploads/er-diagram.png)
+
 ## Edit configurations (Optional)
 
 ### Knex configuration
